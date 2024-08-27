@@ -105,3 +105,17 @@ class Client:
         response = self.session.post(url, json=payload)
         response.raise_for_status()
         return response.json()
+
+    def set_flat_boiler_temperature(self, device_id, temperature):
+        """
+        Set the temperature of a flat boiler device.
+
+        :param device_id: The device ID.
+        :param temperature: The temperature to set.
+        :return: The response from the server.
+        """
+        url = f"{self.base_url}/api/flatboiler/setTemperature"
+        payload = {"deviceId": device_id, "temperature": temperature}
+        response = self.session.post(url, json=payload)
+        response.raise_for_status()
+        return response.json()
