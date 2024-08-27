@@ -92,3 +92,16 @@ class Client:
         response = self.session.post(url, json=payload)
         response.raise_for_status()
         return response.json()
+
+    def set_flat_boiler_powerful_mode_on(self, device_id):
+        """
+        Turn on the powerful mode of a flat boiler device.
+
+        :param device_id: The device ID.
+        :return: The response from the server.
+        """
+        url = f"{self.base_url}/api/flatboiler/setHeater"
+        payload = {"deviceId": device_id, "heater": True}
+        response = self.session.post(url, json=payload)
+        response.raise_for_status()
+        return response.json()
