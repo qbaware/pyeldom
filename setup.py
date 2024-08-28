@@ -1,12 +1,11 @@
-import sys
+import os
 from setuptools import setup, find_packages
 
-# Check if a version argument is passed.
-if len(sys.argv) > 1 and sys.argv[1].startswith("--version="):
-    version = sys.argv[1].split("=")[1]
-    sys.argv = [sys.argv[0]] + sys.argv[2:]
+# Check if a version argument is passed via environment variable.
+if "PACKAGE_VERSION" in os.environ:
+    version = os.environ["PACKAGE_VERSION"]
 else:
-    raise Exception("Version argument is required")
+    raise Exception("Version is required to be passed as an environment variable.")
 
 # Setup the package.
 setup(
