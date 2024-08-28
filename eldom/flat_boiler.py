@@ -21,6 +21,18 @@ class Client(_BaseClient):
 
         super().__init__(base_url, timeout)
 
+    def get_flat_boiler_status(self, device_id):
+        """
+        Get the status of a flat boiler device.
+
+        :param device_id: The device ID.
+        :return: The response from the server.
+        """
+        url = f"{self.base_url}/api/flatboiler/{device_id}"
+        response = self.session.get(url)
+        response.raise_for_status()
+        return response.json().get("objectJson")
+
     def set_flat_boiler_state(self, device_id, state):
         """
         Set the state of a flat boiler device.
