@@ -1,8 +1,17 @@
+import sys
 from setuptools import setup, find_packages
 
+# Check if a version argument is passed.
+if len(sys.argv) > 1 and sys.argv[1].startswith("--version="):
+    version = sys.argv[1].split("=")[1]
+    sys.argv = [sys.argv[0]] + sys.argv[2:]
+else:
+    raise Exception("Version argument is required")
+
+# Setup the package.
 setup(
     name="pyeldom",
-    version="0.0.5",
+    version=version,
     description="A Python client for the Eldom API",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
