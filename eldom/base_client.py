@@ -1,7 +1,8 @@
-import requests
+import json
+import aiohttp
 
 
-class _BaseClient:
+class BaseClient:
     """
     Eldom Base API client.
 
@@ -10,22 +11,30 @@ class _BaseClient:
     Before using the client, you need to login with the login method.
     """
 
-    def __init__(self, base_url, timeout=30):
+    def __init__(
+        self,
+        base_url: str,
+        session: aiohttp.ClientSession,
+    ):
         """
         Initialize the Eldom API client.
 
         Make sure to login with the login method before using the other methods of the client.
 
         :param base_url: The base URL for the API.
-        :param api_key: The API key for authentication (if required).
-        :param timeout: Timeout for API requests.
+        :param session: An optional session object.
         """
 
         self.base_url = base_url
-        self.timeout = timeout
-        self.session = requests.Session()
+        self.session = session
 
-    def login(self, email, password):
+    async def close(self):
+        """
+        Close the session.
+        """
+        await self.session.close()
+
+    async def login(self, email, password):
         """
         Perform login and store the authentication cookie in the session.
 
@@ -34,41 +43,42 @@ class _BaseClient:
         """
         login_url = f"{self.base_url}/Account/Login"
         payload = {"Email": email, "Password": password}
-        response = self.session.post(login_url, data=payload, timeout=self.timeout)
+        response = await self.session.post(login_url, data=payload)
         response.raise_for_status()
 
-    def logout(self):
+    async def logout(self):
         """
         Perform logout and clear the authentication cookie from the session.
         """
         logout_url = f"{self.base_url}/account/logout"
-        response = self.session.get(logout_url, timeout=self.timeout)
+        response = await self.session.get(logout_url)
         response.raise_for_status()
         self.session.cookies.clear()
+        await self.session.cookie_jar.clear()
 
-    def get_user(self):
+    async def get_user(self):
         """
         Get the user information.
 
         :return: The user information.
         """
         user_url = f"{self.base_url}/api/user/get"
-        response = self.session.get(user_url, timeout=self.timeout)
+        response = await self.session.get(user_url)
         response.raise_for_status()
-        return response.json()
+        return json.loads(await response.text())
 
-    def get_devices(self):
+    async def get_devices(self):
         """
         Get the devices information.
 
         :return: The devices information.
         """
         devices_url = f"{self.base_url}/api/device/getmy"
-        response = self.session.get(devices_url, timeout=self.timeout)
+        response = await self.session.get(devices_url)
         response.raise_for_status()
-        return response.json()
+        return json.loads(await response.text())
 
-    def get_device(self, device_id):
+    async def get_device(self, device_id):
         """
         Get the device information.
 
@@ -77,6 +87,6 @@ class _BaseClient:
         """
         url = f"{self.base_url}/api/device/getmydevice"
         payload = {"deviceId": device_id}
-        response = self.session.post(url, json=payload)
+        response = await self.session.post(url, json=payload)
         response.raise_for_status()
-        return response.json()
+        return json.loads(await response.text())

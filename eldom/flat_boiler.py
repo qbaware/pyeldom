@@ -1,14 +1,21 @@
-from eldom.base_client import _BaseClient
+import json
+import aiohttp
+
+from eldom.base_client import BaseClient
 
 
-class Client(_BaseClient):
+class Client(BaseClient):
     """
     Eldom API client.
 
     Before using the client, you need to login with the login method.
     """
 
-    def __init__(self, base_url, timeout=30):
+    def __init__(
+        self,
+        base_url: str,
+        session: aiohttp.ClientSession,
+    ):
         """
         Initialize the Eldom flat boiler API client.
 
@@ -16,12 +23,11 @@ class Client(_BaseClient):
 
         :param base_url: The base URL for the API.
         :param api_key: The API key for authentication (if required).
-        :param timeout: Timeout for API requests.
         """
 
-        super().__init__(base_url, timeout)
+        super().__init__(base_url, session)
 
-    def get_flat_boiler_status(self, device_id):
+    async def get_flat_boiler_status(self, device_id):
         """
         Get the status of a flat boiler device.
 
@@ -29,11 +35,12 @@ class Client(_BaseClient):
         :return: The response from the server.
         """
         url = f"{self.base_url}/api/flatboiler/{device_id}"
-        response = self.session.get(url)
+        response = await self.session.get(url)
         response.raise_for_status()
-        return response.json().get("objectJson")
+        response_json = json.loads(await response.text())
+        return response_json.get("objectJson")
 
-    def set_flat_boiler_state(self, device_id, state):
+    async def set_flat_boiler_state(self, device_id, state):
         """
         Set the state of a flat boiler device.
 
@@ -43,11 +50,11 @@ class Client(_BaseClient):
         """
         url = f"{self.base_url}/api/flatboiler/setState"
         payload = {"deviceId": device_id, "state": state}
-        response = self.session.post(url, json=payload)
+        response = await self.session.post(url, json=payload)
         response.raise_for_status()
-        return response.json()
+        return json.loads(await response.text())
 
-    def set_flat_boiler_powerful_mode_on(self, device_id):
+    async def set_flat_boiler_powerful_mode_on(self, device_id):
         """
         Turn on the powerful mode of a flat boiler device.
 
@@ -56,11 +63,11 @@ class Client(_BaseClient):
         """
         url = f"{self.base_url}/api/flatboiler/setHeater"
         payload = {"deviceId": device_id, "heater": True}
-        response = self.session.post(url, json=payload)
+        response = await self.session.post(url, json=payload)
         response.raise_for_status()
-        return response.json()
+        return json.loads(await response.text())
 
-    def set_flat_boiler_temperature(self, device_id, temperature):
+    async def set_flat_boiler_temperature(self, device_id, temperature):
         """
         Set the temperature of a flat boiler device.
 
@@ -70,6 +77,6 @@ class Client(_BaseClient):
         """
         url = f"{self.base_url}/api/flatboiler/setTemperature"
         payload = {"deviceId": device_id, "temperature": temperature}
-        response = self.session.post(url, json=payload)
+        response = await self.session.post(url, json=payload)
         response.raise_for_status()
-        return response.json()
+        return json.loads(await response.text())
