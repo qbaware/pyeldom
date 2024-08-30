@@ -2,6 +2,7 @@ import json
 import aiohttp
 
 from eldom.base_client import BaseClient
+from eldom.models import FlatBoilerDetails
 
 
 class Client(BaseClient):
@@ -38,7 +39,12 @@ class Client(BaseClient):
         response = await self.session.get(url)
         response.raise_for_status()
         response_json = json.loads(await response.text())
-        return response_json.get("objectJson")
+        boiler_json = json.loads(response_json.get("objectJson"))
+
+        supported_boiler_fields = {field.name for field in FlatBoilerDetails.__dataclass_fields__.values()}
+        filtered_boiler_json = {k: v for k, v in boiler_json.items() if k in supported_boiler_fields}
+
+        return FlatBoilerDetails(**filtered_boiler_json)
 
     async def set_flat_boiler_state(self, device_id, state):
         """
@@ -52,7 +58,6 @@ class Client(BaseClient):
         payload = {"deviceId": device_id, "state": state}
         response = await self.session.post(url, json=payload)
         response.raise_for_status()
-        return json.loads(await response.text())
 
     async def set_flat_boiler_powerful_mode_on(self, device_id):
         """
@@ -65,7 +70,6 @@ class Client(BaseClient):
         payload = {"deviceId": device_id, "heater": True}
         response = await self.session.post(url, json=payload)
         response.raise_for_status()
-        return json.loads(await response.text())
 
     async def set_flat_boiler_temperature(self, device_id, temperature):
         """
@@ -79,4 +83,3 @@ class Client(BaseClient):
         payload = {"deviceId": device_id, "temperature": temperature}
         response = await self.session.post(url, json=payload)
         response.raise_for_status()
-        return json.loads(await response.text())

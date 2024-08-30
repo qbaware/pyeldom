@@ -1,6 +1,8 @@
 import json
 import aiohttp
 
+from eldom.models import Device, Language, User
+
 
 class BaseClient:
     """
@@ -65,7 +67,12 @@ class BaseClient:
         user_url = f"{self.base_url}/api/user/get"
         response = await self.session.get(user_url)
         response.raise_for_status()
-        return json.loads(await response.text())
+        response_json = json.loads(await response.text())
+        response_json["language"] = Language(response_json["language"])
+        response_json["lastLoginDate"] = response_json["lastLoginDate"]
+        response_json["lastActiveDate"] = response_json["lastActiveDate"]
+        return User(**response_json)
+
 
     async def get_devices(self):
         """
@@ -76,17 +83,9 @@ class BaseClient:
         devices_url = f"{self.base_url}/api/device/getmy"
         response = await self.session.get(devices_url)
         response.raise_for_status()
-        return json.loads(await response.text())
-
-    async def get_device(self, device_id):
-        """
-        Get the device information.
-
-        :param device_id: The device ID.
-        :return: The device information.
-        """
-        url = f"{self.base_url}/api/device/getmydevice"
-        payload = {"deviceId": device_id}
-        response = await self.session.post(url, json=payload)
-        response.raise_for_status()
-        return json.loads(await response.text())
+        response_json = json.loads(await response.text())
+        devices = []
+        for device_json in response_json:
+            device_json["lastDataRefreshDate"] = device_json["lastDataRefreshDate"]
+            devices.append(Device(**device_json))
+        return devices
