@@ -75,3 +75,27 @@ class FlatBoilerDetails:
     LoweredPower: bool
     FrostProtection: bool
     HasBoost: bool
+
+
+@dataclass(frozen=True)
+class SmartBoilerDetails:
+    ID: int
+    DeviceID: str
+    Type: int
+    Protocol: int
+    Manifactor: int
+    HardwareVersion: int
+    SoftwareVersion: int
+    SaveLocked: bool
+    LastRefreshDate: datetime
+    Heater: bool
+    WH_TempL: int
+    EnergyD: float
+    EnergyN: float
+    SmartBoilerControl: int
+    Compensation: bool
+    State: int
+    SetTemp: int
+    ErrorFlag: int
+    BoostHeating: bool
+    SavedEnergy: int

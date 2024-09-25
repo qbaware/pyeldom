@@ -1,14 +1,18 @@
 import json
 import aiohttp
 
-from eldom.models import Device, Language, User
+from .flat_boiler import FlatBoilerClient
+from .models import Device, Language, User
+from .smart_boiler import SmartBoilerClient
 
 
-class BaseClient:
+class Client(FlatBoilerClient, SmartBoilerClient):
     """
-    Eldom Base API client.
+    Eldom main API client.
 
     It offers basic API calls like login, logout, get user data, get available devices, etc.
+
+    It also offers access to the flat boiler and smart boiler clients.
 
     Before using the client, you need to login with the login method.
     """
@@ -24,8 +28,10 @@ class BaseClient:
         Make sure to login with the login method before using the other methods of the client.
 
         :param base_url: The base URL for the API.
-        :param session: An optional session object.
+        :param session: A session object.
         """
+        FlatBoilerClient.__init__(self, base_url=base_url, session=session)
+        SmartBoilerClient.__init__(self, base_url=base_url, session=session)
 
         self.base_url = base_url
         self.session = session
@@ -72,7 +78,6 @@ class BaseClient:
         response_json["lastLoginDate"] = response_json["lastLoginDate"]
         response_json["lastActiveDate"] = response_json["lastActiveDate"]
         return User(**response_json)
-
 
     async def get_devices(self):
         """
