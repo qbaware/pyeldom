@@ -8,7 +8,7 @@ class Language(Enum):
     ENGLISH = 0
 
 
-@dataclass(frozen=True)
+@dataclass
 class User:
     id: int
     firstName: str
@@ -24,7 +24,7 @@ class User:
     ip: str
 
 
-@dataclass(frozen=True)
+@dataclass
 class Device:
     id: int
     realDeviceId: str
@@ -41,7 +41,7 @@ class Device:
     timeZoneName: Optional[str]
 
 
-@dataclass(frozen=True)
+@dataclass
 class FlatBoilerDetails:
     ID: int
     DeviceID: str
@@ -77,7 +77,7 @@ class FlatBoilerDetails:
     HasBoost: bool
 
 
-@dataclass(frozen=True)
+@dataclass
 class SmartBoilerDetails:
     ID: int
     DeviceID: str
