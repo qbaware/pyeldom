@@ -1,12 +1,13 @@
 import json
 import aiohttp
 
+from .convector_heater import ConvectorHeaterClient
 from .flat_boiler import FlatBoilerClient
 from .models import Device, Language, User
 from .smart_boiler import SmartBoilerClient
 
 
-class Client(FlatBoilerClient, SmartBoilerClient):
+class Client(FlatBoilerClient, SmartBoilerClient, ConvectorHeaterClient):
     """
     Eldom main API client.
 
@@ -32,6 +33,7 @@ class Client(FlatBoilerClient, SmartBoilerClient):
         """
         FlatBoilerClient.__init__(self, base_url=base_url, session=session)
         SmartBoilerClient.__init__(self, base_url=base_url, session=session)
+        ConvectorHeaterClient.__init__(self, base_url=base_url, session=session)
 
         self.base_url = base_url
         self.session = session
