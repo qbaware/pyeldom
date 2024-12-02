@@ -25,7 +25,9 @@ class SmartBoilerClient:
         :param session: A session object.
         """
         if type(self) is SmartBoilerClient:
-            raise NotImplementedError("SmartBoilerClient is an abstract class and cannot be instantiated directly")
+            raise NotImplementedError(
+                "SmartBoilerClient is an abstract class and cannot be instantiated directly"
+            )
 
         self.base_url = base_url
         self.session = session

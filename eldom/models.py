@@ -99,3 +99,27 @@ class SmartBoilerDetails:
     ErrorFlag: int
     BoostHeating: bool
     SavedEnergy: int
+
+
+@dataclass
+class ConvectorHeaterDetails:
+    ID: int
+    DeviceID: str
+    Type: int
+    Protocol: int
+    Manifactor: int
+    HardwareVersion: int
+    SoftwareVersion: int
+    SaveLocked: bool
+    LastRefreshDate: datetime
+    EnergyD: float
+    EnergyN: float
+    State: int
+    SetTemp: int
+    AmbientTemp: int
+    Power: int
+    BoostHeating: bool
+    OpenWindow: int
+    PowerIDX: int
+    PCBTemp: int
+    ErrorFlag: int
