@@ -6,4 +6,4 @@ Currently, it supports:
 
 * Flat boilers
 * Smart boilers
-* (Experimental) Convector heaters
+* Convector heaters
