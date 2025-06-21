@@ -91,3 +91,15 @@ class FlatBoilerClient:
         payload = {"deviceId": device_id, "temperature": temperature}
         response = await self.session.post(url, json=payload)
         response.raise_for_status()
+
+    async def reset_flat_boiler_energy_usage(self, device_id):
+        """
+        Reset the energy usage of a flat boiler device.
+
+        :param device_id: The device ID.
+        :return: The response from the server.
+        """
+        url = f"{self.base_url}/api/flatboiler/resetEnergyDate"
+        payload = {"deviceId": device_id}
+        response = await self.session.post(url, json=payload)
+        response.raise_for_status()
