@@ -63,8 +63,7 @@ class Client(FlatBoilerClient, SmartBoilerClient, ConvectorHeaterClient):
         logout_url = f"{self.base_url}/account/logout"
         response = await self.session.get(logout_url)
         response.raise_for_status()
-        self.session.cookies.clear()
-        await self.session.cookie_jar.clear()
+        self.session.cookie_jar.clear()
 
     async def get_user(self):
         """
