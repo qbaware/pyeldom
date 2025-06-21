@@ -17,8 +17,8 @@ class User:
     IsAdmin: bool
     alertEmail: Optional[str]
     language: Language
-    lastLoginDate: datetime
-    lastActiveDate: datetime
+    lastLoginDate: datetime.datetime
+    lastActiveDate: datetime.datetime
     isActive: bool
     agreedWithTerms: bool
     ip: str
@@ -36,7 +36,7 @@ class Device:
     hwVersion: int
     swVersion: int
     usersWithAccess: int
-    lastDataRefreshDate: datetime
+    lastDataRefreshDate: datetime.datetime
     timeZoneId: Optional[str]
     timeZoneName: Optional[str]
 
@@ -51,7 +51,7 @@ class FlatBoilerDetails:
     HardwareVersion: int
     SoftwareVersion: int
     SaveLocked: bool
-    LastRefreshDate: datetime
+    LastRefreshDate: datetime.datetime
     SetTemp: int
     OnOffStat: int
     State: int
@@ -87,7 +87,7 @@ class SmartBoilerDetails:
     HardwareVersion: int
     SoftwareVersion: int
     SaveLocked: bool
-    LastRefreshDate: datetime
+    LastRefreshDate: datetime.datetime
     Heater: bool
     WH_TempL: int
     EnergyD: float
@@ -111,7 +111,7 @@ class ConvectorHeaterDetails:
     HardwareVersion: int
     SoftwareVersion: int
     SaveLocked: bool
-    LastRefreshDate: datetime
+    LastRefreshDate: datetime.datetime
     EnergyD: float
     EnergyN: float
     State: int
