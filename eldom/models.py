@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-import datetime
 from typing import Optional
 from enum import Enum
 
@@ -52,6 +51,7 @@ class FlatBoilerDetails:
     SoftwareVersion: int
     SaveLocked: bool
     LastRefreshDate: str
+    EnergyDate: str
     SetTemp: int
     OnOffStat: int
     State: int
@@ -88,6 +88,7 @@ class SmartBoilerDetails:
     SoftwareVersion: int
     SaveLocked: bool
     LastRefreshDate: str
+    EnergyDate: str
     Heater: bool
     WH_TempL: int
     EnergyD: float
