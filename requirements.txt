@@ -1,2 +1,5 @@
-requests
-aiohttp
+aiohttp==3.13.1
+crc32c==2.8
+jwt==1.4.0
+PyJWT==2.10.1
+requests==2.32.5

@@ -1,7 +1,8 @@
 import json
 import aiohttp
 
-from eldom.models import ConvectorHeaterDetails
+from .const import BASE_URL
+from .models import ConvectorHeaterDetails
 
 
 class ConvectorHeaterClient:
@@ -13,7 +14,6 @@ class ConvectorHeaterClient:
 
     def __init__(
         self,
-        base_url: str,
         session: aiohttp.ClientSession,
     ):
         """
@@ -21,15 +21,8 @@ class ConvectorHeaterClient:
 
         Make sure to login with the login method before using the other methods of the client.
 
-        :param base_url: The base URL for the API.
         :param session: A session object.
         """
-        if type(self) is ConvectorHeaterClient:
-            raise NotImplementedError(
-                "ConvectorHeaterClient is an abstract class and cannot be instantiated directly"
-            )
-
-        self.base_url = base_url
         self.session = session
 
     async def get_convector_heater_status(self, device_id):
@@ -39,7 +32,7 @@ class ConvectorHeaterClient:
         :param device_id: The device ID.
         :return: The response from the server.
         """
-        url = f"{self.base_url}/api/panelconvector/{device_id}"
+        url = f"{BASE_URL}/api/panelconvector/{device_id}"
         response = await self.session.get(url)
         response.raise_for_status()
         response_json = json.loads(await response.text())
@@ -62,7 +55,7 @@ class ConvectorHeaterClient:
         :param state: The state to set (e.g., 0 to turn off, 1 to turn on heating, 2 to turn on Smart mode, 3 to turn on Study mode).
         :return: The response from the server.
         """
-        url = f"{self.base_url}/api/panelconvector/setState"
+        url = f"{BASE_URL}/api/panelconvector/setState"
         payload = {"deviceId": device_id, "state": state}
         response = await self.session.post(url, json=payload)
         response.raise_for_status()
@@ -75,7 +68,7 @@ class ConvectorHeaterClient:
         :param temperature: The temperature to set.
         :return: The response from the server.
         """
-        url = f"{self.base_url}/api/panelconvector/setTemperature"
+        url = f"{BASE_URL}/api/panelconvector/setTemperature"
         payload = {"deviceId": device_id, "temperature": temperature}
         response = await self.session.post(url, json=payload)
         response.raise_for_status()

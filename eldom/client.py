@@ -2,14 +2,15 @@ import json
 import aiohttp
 
 from .convector_heater import ConvectorHeaterClient
+from .constants import BASE_URL
 from .flat_boiler import FlatBoilerClient
 from .models import Device, Language, User
 from .smart_boiler import SmartBoilerClient
 
 
-class Client(FlatBoilerClient, SmartBoilerClient, ConvectorHeaterClient):
+class Client:
     """
-    Eldom main API client.
+    Eldom main API client for the `myeldom.com` APIs.
 
     It offers basic API calls like login, logout, get user data, get available devices, etc.
 
@@ -20,7 +21,6 @@ class Client(FlatBoilerClient, SmartBoilerClient, ConvectorHeaterClient):
 
     def __init__(
         self,
-        base_url: str,
         session: aiohttp.ClientSession,
     ):
         """
@@ -28,15 +28,13 @@ class Client(FlatBoilerClient, SmartBoilerClient, ConvectorHeaterClient):
 
         Make sure to login with the login method before using the other methods of the client.
 
-        :param base_url: The base URL for the API.
         :param session: A session object.
         """
-        FlatBoilerClient.__init__(self, base_url=base_url, session=session)
-        SmartBoilerClient.__init__(self, base_url=base_url, session=session)
-        ConvectorHeaterClient.__init__(self, base_url=base_url, session=session)
-
-        self.base_url = base_url
         self.session = session
+
+        self.flat_boiler = FlatBoilerClient(BASE_URL, session)
+        self.smart_boiler = SmartBoilerClient(BASE_URL, session)
+        self.convector_heater = ConvectorHeaterClient(BASE_URL, session)
 
     async def close(self):
         """
@@ -51,7 +49,7 @@ class Client(FlatBoilerClient, SmartBoilerClient, ConvectorHeaterClient):
         :param email: The email for login.
         :param password: The password for login.
         """
-        login_url = f"{self.base_url}/Account/Login"
+        login_url = f"{BASE_URL}/Account/Login"
         payload = {"Email": email, "Password": password}
         response = await self.session.post(login_url, data=payload)
         response.raise_for_status()
@@ -60,7 +58,7 @@ class Client(FlatBoilerClient, SmartBoilerClient, ConvectorHeaterClient):
         """
         Perform logout and clear the authentication cookie from the session.
         """
-        logout_url = f"{self.base_url}/account/logout"
+        logout_url = f"{BASE_URL}/account/logout"
         response = await self.session.get(logout_url)
         response.raise_for_status()
         self.session.cookie_jar.clear()
@@ -71,7 +69,7 @@ class Client(FlatBoilerClient, SmartBoilerClient, ConvectorHeaterClient):
 
         :return: The user information.
         """
-        user_url = f"{self.base_url}/api/user/get"
+        user_url = f"{BASE_URL}/api/user/get"
         response = await self.session.get(user_url)
         response.raise_for_status()
         response_json = json.loads(await response.text())
@@ -86,7 +84,7 @@ class Client(FlatBoilerClient, SmartBoilerClient, ConvectorHeaterClient):
 
         :return: The devices information.
         """
-        devices_url = f"{self.base_url}/api/device/getmy"
+        devices_url = f"{BASE_URL}/api/device/getmy"
         response = await self.session.get(devices_url)
         response.raise_for_status()
         response_json = json.loads(await response.text())
