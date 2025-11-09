@@ -93,3 +93,15 @@ class Client:
             device_json["lastDataRefreshDate"] = device_json["lastDataRefreshDate"]
             devices.append(Device(**device_json))
         return devices
+
+    async def is_connected(self):
+        """
+        Check whether the connection is established.
+
+        :return: Boolean showing if the client is connected.
+        """
+        try:
+            await self.get_user()
+            return True
+        except Exception:
+            return False

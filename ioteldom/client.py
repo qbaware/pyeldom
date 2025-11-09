@@ -58,9 +58,7 @@ class Client:
         response.raise_for_status()
         response_json = json.loads(await response.text())
 
-        supported_fields = {
-            field.name for field in User.__dataclass_fields__.values()
-        }
+        supported_fields = {field.name for field in User.__dataclass_fields__.values()}
         filtered_user_json = {
             k: v for k, v in response_json.items() if k in supported_fields
         }
@@ -95,3 +93,15 @@ class Client:
 
             devices.append(Device(**filtered_json))
         return devices
+
+    async def is_connected(self):
+        """
+        Check whether the connection is established.
+
+        :return: Boolean showing if the client is connected.
+        """
+        try:
+            await self.get_user()
+            return True
+        except Exception:
+            return False
