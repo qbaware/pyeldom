@@ -144,6 +144,14 @@ class ConvectorHeaterClient:
             "ID": device.pairTok,
             "Req": "SetParams",
             "TSet": str(temperature),
+
+            # TODO: Find and replace those parameters with their actual current values instead of hardcoding.
+            "AutoTimeSet": "1",
+            "Rate1": "06:00",
+            "Rate2": "22:00",
+            "SystemSettings": "1, 2, 2, 0",
+            "Lock": "0",
+
             "CID": "1",
         }
         payload["CRC"] = crc32(payload)
