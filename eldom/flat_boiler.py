@@ -1,7 +1,7 @@
 import json
 import aiohttp
 
-from .const import BASE_URL
+from .constants import BASE_URL
 from .models import FlatBoilerDetails
 
 

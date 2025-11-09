@@ -32,9 +32,9 @@ class Client:
         """
         self.session = session
 
-        self.flat_boiler = FlatBoilerClient(BASE_URL, session)
-        self.smart_boiler = SmartBoilerClient(BASE_URL, session)
-        self.convector_heater = ConvectorHeaterClient(BASE_URL, session)
+        self.flat_boiler = FlatBoilerClient(session)
+        self.smart_boiler = SmartBoilerClient(session)
+        self.convector_heater = ConvectorHeaterClient(session)
 
     async def close(self):
         """
