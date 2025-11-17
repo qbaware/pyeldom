@@ -101,7 +101,7 @@ class Client:
         :return: Boolean showing if the client is connected.
         """
         try:
-            await self.get_user()
+            await self.get_devices()
             return True
         except Exception:
             return False
