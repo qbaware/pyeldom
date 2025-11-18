@@ -1,9 +1,13 @@
 # PyEldom
 
-An unofficial Python library to interact with [Eldom](https://eldominvest.com/en/index.html)'s APIs.
+An unofficial Python library to interact with both [Eldom](https://eldominvest.com/en/index.html) APIs.
 
-Currently, it supports:
+## `myeldom.com`
 
 * Flat boilers
 * Smart boilers
+* Convector heaters 
+
+## `iot.myeldom.com`
+
 * Convector heaters
