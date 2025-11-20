@@ -25,15 +25,15 @@ class Device:
     """
     model: str
     """
-    Device model. E.g., HTRCNV
+    Device model. E.g., HTRCNV, BLR2T
     """
     fmodel: str
     """
-    Another device model. This seems to be the actual device model. E.g., RH30NW
+    Another device model. This seems to be the actual device model. E.g., RH30NW, R0530
     """
     name: str
     """
-    Device name. Seems to correlate with the FModel. E.g., RH30NW
+    Device name. Seems to correlate with the FModel. E.g., RH30NW, R0530
     """
     pairTok: str
     """
@@ -83,3 +83,35 @@ class ConvectorHeaterStateChangeResponse:
     """
     Reason for the response. E.g., "SUCCESS".
     """
+
+
+@dataclass
+class FlatBoilerDetails:
+    ID: str
+    """Device pair token. This is the value that's used as device ID in the API calls. Yeah, the API is kind of odd."""
+    Tin: str
+    """Temperature reading of the second chamber. For 20 degrees, the value is 20."""
+    Tout: str
+    """Temperature reading of the first chamber. For 20 degrees, the value is 20."""
+    Smart: str
+    """Not sure."""
+    EcoTin: str
+    """Second heater target temperature in Eco mode. For 55 degrees, the value is 55."""
+    Heater: str
+    """Not sure."""
+    Status: str
+    """Not sure what status is this."""
+    EcoMode: str
+    """Not sure what EcoMode is."""
+    EcoTout: str
+    """First heater target temperature in Eco mode. For 55 degrees, the value is 55."""
+    ReadyTime: str
+    """Not sure."""
+    BoilerMode: str
+    """Not sure."""
+    RemainTime: str
+    """Not sure."""
+    ExtraSaveRate: str
+    """Not sure."""
+    Powerfull_Tset: str
+    """I guess the target temperature when in Powerful mode. For 65 degrees, the value is 65. This might be for both chambers."""

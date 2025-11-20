@@ -3,8 +3,9 @@ import aiohttp
 
 from .convector_heater import ConvectorHeaterClient
 from .constants import BASE_URL
+from .flat_boiler import FlatBoilerClient
 from .models import Device, User
-from .token import TokenProvider
+from .token_provider import TokenProvider
 
 
 class Client:
@@ -35,6 +36,7 @@ class Client:
         self.token_provider = TokenProvider(session, username, password)
 
         self.convector_heater = ConvectorHeaterClient(session, self.token_provider)
+        self.flat_boiler = FlatBoilerClient(session, self.token_provider)
 
     async def close(self):
         """

@@ -7,7 +7,7 @@ from .models import FlatBoilerDetails
 
 class FlatBoilerClient:
     """
-    Eldom flat boiler API client abstract class.
+    Eldom flat boiler API client class.
 
     Before using the client, you need to login with the login method.
     """

@@ -4,7 +4,7 @@ import aiohttp
 from .constants import BASE_URL
 from .models import ConvectorHeaterDetails, ConvectorHeaterStateChangeResponse, Device
 from .crc import crc32
-from .token import TokenProvider
+from .token_provider import TokenProvider
 
 
 class ConvectorHeaterClient:
@@ -39,7 +39,7 @@ class ConvectorHeaterClient:
         """
 
         # Example curl request:
-        # curl -H "ionic-idd: AD0B221071225F28" -H "authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoaGFsaWw5NyIsImF1DGgiOiJST0xFX1VTRVIiLCJleHAiOjE3NjE1OTYxMDd9.sLn2CEJIIW24lFEz7kIZ183zzTC6ktlFWJc4f8DSP0KAxrzG-ADK9RRfsF3aVBwOxyufHKWPFMiSBnnjINWM9Q" -H "user-agent: Mozilla/5.0 (Linux; Android 14; sdk_gphone64_arm64 Build/UE1A.230829.050; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/113.0.5672.136 Mobile Safari/537.36" -H "content-type: application/json" --data-binary "{\"ID\":\"R7alOFhj9kDslr2X\",\"Req\":\"GetStatus\",\"CID\":\"1\",\"CRC\":\"DD80A782\"}" --compressed "https://iot.myeldom.com/api/direct-req"
+        # curl -H "ionic-idd: <DEVICE_UUID>" -H "authorization: Bearer <TOKEN>" -H "user-agent: Mozilla/5.0 (Linux; Android 14; sdk_gphone64_arm64 Build/UE1A.230829.050; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/113.0.5672.136 Mobile Safari/537.36" -H "content-type: application/json" --data-binary "{\"ID\":\"R7alOFhj9kDslr2X\",\"Req\":\"GetStatus\",\"CID\":\"1\",\"CRC\":\"DD80A782\"}" --compressed "https://iot.myeldom.com/api/direct-req"
 
         # Notes: The 'ionic-idd' header is the device UUID, while the ID in the body is the device pair token, lol
 
@@ -83,7 +83,7 @@ class ConvectorHeaterClient:
         """
 
         # Example curl request:
-        # curl -H -H "ionic-idd: AD0B221071125F28" -H "authorization: Bearer eyJhbGsssiJIUzUxMiJ9.eysssWIiOiJoaGFsaWw5NyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjxxxjI0NDA5NzZ9.R9eoX_GsDhsssKX6jEWPceJVadBOC1jg98fk3T0O78_Qpdhke0kE1T9CTLmorya0sssr1PxV3WFwneaaoVUFqA" -H "user-agent: Mozilla/5.0 (Linux; Android 14; sdk_gphone64_arm64 Build/UE1A.230829.050; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/113.0.5672.136 Mobile Safari/537.36" -H "content-type: application/json" --data-binary "{\"ID\":\"R7alOFhj9kDslr2X\",\"Req\":\"On\",\"CID\":\"1\",\"CRC\":\"81D7BD02\"}" --compressed "https://iot.myeldom.com/api/direct-req"
+        # curl -H -H "ionic-idd: <DEVICE_UUID>" -H "authorization: Bearer <TOKEN>" -H "user-agent: Mozilla/5.0 (Linux; Android 14; sdk_gphone64_arm64 Build/UE1A.230829.050; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/113.0.5672.136 Mobile Safari/537.36" -H "content-type: application/json" --data-binary "{\"ID\":\"R7alOFhj9kDslr2X\",\"Req\":\"On\",\"CID\":\"1\",\"CRC\":\"81D7BD02\"}" --compressed "https://iot.myeldom.com/api/direct-req"
 
         # Notes: The 'ionic-idd' header is the device UUID, while the ID in the body is the device pair token
 
@@ -128,7 +128,7 @@ class ConvectorHeaterClient:
         """
 
         # Example curl request:
-        # curl -H "ionic-idd: AD0B221071125F28" -H "authorization: Bearer eyJhbGsssiJIUzUxMiJ9.eyJzdWIiOiJwaGFsaWw5NyIsImF1dGgiOiJST0wFX1VTRVIiLCJleHAiOjE3NjI0NDA5NzZ9.R9eoX_ssshwYsKX6jEWPceJVadbOC1jg98wk2T0O78_Qpdhke0kE1T9CTLmorya05Y1R1PxsssFwneeaoVUFqA" -H "user-agent: Mozilla/5.0 (Linux; Android 14; sdk_gphone64_arm64 Build/UE1A.230829.050; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/113.0.5672.136 Mobile Safari/537.36" -H "content-type: application/json" --data-binary "{\"ID\":\"R7alOFhj9kDslr2X\",\"Req\":\"SetParams\",\"TSet\":\"22\",\"AutoTimeSet\":\"1\",\"Rate1\":\"06:00\",\"Rate2\":\"22:00\",\"SystemSettings\":\"1, 2, 2, 0\",\"Lock\":\"0\",\"CID\":\"1\",\"CRC\":\"1A61D4E8\"}" --compressed "https://iot.myeldom.com/api/direct-req"
+        # curl -H "ionic-idd: <DEVICE_UUID>" -H "authorization: Bearer <TOKEN>" -H "user-agent: Mozilla/5.0 (Linux; Android 14; sdk_gphone64_arm64 Build/UE1A.230829.050; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/113.0.5672.136 Mobile Safari/537.36" -H "content-type: application/json" --data-binary "{\"ID\":\"R7alOFhj9kDslr2X\",\"Req\":\"SetParams\",\"TSet\":\"22\",\"AutoTimeSet\":\"1\",\"Rate1\":\"06:00\",\"Rate2\":\"22:00\",\"SystemSettings\":\"1, 2, 2, 0\",\"Lock\":\"0\",\"CID\":\"1\",\"CRC\":\"1A61D4E8\"}" --compressed "https://iot.myeldom.com/api/direct-req"
 
         # Notes: The 'ionic-idd' header is the device UUID, while the ID in the body is the device pair token
 
