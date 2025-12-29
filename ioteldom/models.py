@@ -108,7 +108,7 @@ class FlatBoilerDetails:
     ReadyTime: str
     """Not sure."""
     BoilerMode: str
-    """Not sure."""
+    """The currently selected operation mode. It can be any of 0 - Off, 2 - Powerful, 4 - Smart, 6 - Eco, 8 - Extra Safe."""
     RemainTime: str
     """Not sure."""
     ExtraSaveRate: str
