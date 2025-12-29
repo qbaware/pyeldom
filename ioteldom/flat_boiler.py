@@ -80,7 +80,7 @@ class FlatBoilerClient:
         Set the state of a flat boiler device.
 
         :param device: The device.
-        :param state: The state to set (a string integer) - "0" for Off, "1" for On, "2" for Eco, "3" for Smart, "4" for ExtraSafe, "5" for Powerfull).
+        :param state: The state to set (an int) - 0 for Off, 2 for Powerful, 4 for Eco, 6 for Smart, 8 for ExtraSafe.
         :return: The response from the server.
         """
 
@@ -95,12 +95,11 @@ class FlatBoilerClient:
         # --compressed "https://iot.myeldom.com/api/direct-req"
 
         state_map = {
-            "0": "Off",
-            "1": "On",
-            "2": "Eco",
-            "3": "Smart",
-            "4": "ExtraSafe",
-            "5": "Powerfull",
+            0: "Off",
+            2: "Powerfull",
+            4: "Smart",
+            6: "Eco",
+            8: "ExtraSafe",
         }
 
         if state not in state_map:
