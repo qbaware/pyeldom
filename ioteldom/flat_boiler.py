@@ -80,7 +80,7 @@ class FlatBoilerClient:
         Set the state of a flat boiler device.
 
         :param device: The device.
-        :param state: The state to set (an int) - 0 for Off, 2 for Powerful, 4 for Eco, 6 for Smart, 8 for ExtraSafe.
+        :param state: The state to set (an int) - 0 for Off, 2 for Powerful, 4 for Eco, 6 for Smart, 8 for ExtraSave.
         :return: The response from the server.
         """
 
@@ -99,7 +99,7 @@ class FlatBoilerClient:
             2: "Powerfull",
             4: "Smart",
             6: "Eco",
-            8: "ExtraSafe",
+            8: "ExtraSave",
         }
 
         if state not in state_map:
