@@ -163,6 +163,7 @@ cython_debug/
 
 experiment.py
 experiment_ioteldom.py
+experiment_naturela.py
 build-pypi-package.sh
 
 /bin

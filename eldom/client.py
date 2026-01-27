@@ -5,6 +5,7 @@ from .convector_heater import ConvectorHeaterClient
 from .constants import BASE_URL
 from .flat_boiler import FlatBoilerClient
 from .models import Device, Language, User
+from .naturela_boiler import NaturelaBoilerClient
 from .smart_boiler import SmartBoilerClient
 
 
@@ -14,7 +15,7 @@ class Client:
 
     It offers basic API calls like login, logout, get user data, get available devices, etc.
 
-    It also offers access to the flat boiler and smart boiler clients.
+    It also offers access to the flat boiler, smart boiler, naturela boiler, and convector heater clients.
 
     Before using the client, you need to login with the login method.
     """
@@ -34,6 +35,7 @@ class Client:
 
         self.flat_boiler = FlatBoilerClient(session)
         self.smart_boiler = SmartBoilerClient(session)
+        self.naturela_boiler = NaturelaBoilerClient(session)
         self.convector_heater = ConvectorHeaterClient(session)
 
     async def close(self):

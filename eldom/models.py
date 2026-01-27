@@ -103,6 +103,66 @@ class SmartBoilerDetails:
 
 
 @dataclass
+class NaturelaBoilerDetails:
+    ID: int
+    DeviceID: str
+    Type: int
+    Protocol: int
+    Manifactor: int
+    HardwareVersion: int
+    SoftwareVersion: int
+    SaveLocked: bool
+    LastRefreshDate: str
+    ElSetTemp: int
+    HeaterOnTemp: int
+    Rate1Start: str
+    Rate2Start: str
+    SolarDT1On: int
+    SolarDT1Off: int
+    DHWPriorityDT2On: int
+    DHWPriorityDT2Off: int
+    CHPriorityT4On: int
+    CHPriorityT4Off: int
+    BoilerPumpPriority: int
+    ElHeater: bool
+    ElHeaterKW: int
+    SolarColector: bool
+    BoilerHeatingInstalation: bool
+    Anode: bool
+    AntiLegionella: bool
+    SolarAntiFrost: bool
+    SolarAntiFrostTemperature: int
+    AutoHolidayMode: bool
+    UseBoilerPump: bool
+    TankMinTemp: int
+    SolarOverheating: int
+    State: int
+    Heater: bool
+    PumpSolar: bool
+    TTop: int
+    TMiddle: int
+    TBottom: int
+    TBoiler: int
+    TSolar: int
+    Date: str
+    ErrorFlag: int
+    EnergyD: float
+    EnergyN: float
+    EnergyDate: str
+    Anode_l: float
+    PumpBoiler: bool
+    Sensor: int
+    ActiveHoliday: bool
+    IsElHeaterForbidden: bool
+    ActiveAntilegionela: bool
+    TimerSFI: int
+    TimerSTemp: int
+    TimerSMTemp: int
+    TimerStartDoW: int
+    TimerNDate: str
+
+
+@dataclass
 class ConvectorHeaterDetails:
     ID: int
     DeviceID: str
