@@ -6,6 +6,7 @@ An unofficial Python library to interact with both [Eldom](https://eldominvest.c
 
 * Flat boilers
 * Smart boilers
+* Naturela boilers
 * Convector heaters
 
 ## `iot.myeldom.com`
