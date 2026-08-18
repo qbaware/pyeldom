@@ -8,6 +8,10 @@ from .models import Device, User
 from .token_provider import TokenProvider
 
 
+class InvalidCredentialsError(Exception):
+    """Raised when the API rejects the session as unauthorized (401/403)."""
+
+
 class Client:
     """
     Eldom main API client for the `iot.myeldom.com` APIs.
@@ -101,9 +105,18 @@ class Client:
         Check whether the connection is established.
 
         :return: Boolean showing if the client is connected.
+        :raises InvalidCredentialsError: If the session was rejected as unauthorized
+            (401/403) — distinct from a generic connectivity failure, since it means
+            retrying won't help without new credentials.
         """
         try:
             await self.get_devices()
             return True
+        except aiohttp.ClientResponseError as err:
+            if err.status in (401, 403):
+                raise InvalidCredentialsError(
+                    "Invalid email or password"
+                ) from err
+            return False
         except Exception:
             return False
